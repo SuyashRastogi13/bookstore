@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College BookStore</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .page { display: none; }
+        .page.active { display: block; }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans text-gray-900">
+
+    <!-- Navigation Header -->
+    <header class="bg-indigo-700 text-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="bg-white text-indigo-700 p-2 rounded-lg font-bold text-xl">
+                    <i class="fas fa-book-open"></i>
+                </div>
+                <h1 class="text-xl font-bold tracking-tight">City State College Bookstore</h1>
+            </div>
+            <nav class="hidden md:flex space-x-6 font-medium">
+                <a href="#" onclick="showPage('home')" class="hover:text-indigo-200 transition">Home</a>
+                <a href="#" onclick="showPage('catalog')" class="hover:text-indigo-200 transition">Catalog</a>
+                <a href="#" onclick="showPage('login')" class="hover:text-indigo-200 transition">Login</a>
+                <a href="#" onclick="showPage('register')" class="hover:text-indigo-200 transition">Register</a>
+                <a href="#" onclick="showPage('cart')" class="hover:text-indigo-200 transition relative">
+                    <i class="fas fa-shopping-cart"></i> Cart
+                    <span id="cart-count" class="absolute -top-2 -right-3 bg-red-500 text-white text-xs rounded-full px-1.5">0</span>
+                </a>
+            </nav>
+            <button class="md:hidden text-2xl" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden bg-indigo-800 px-4 py-4 space-y-3 md:hidden">
+            <a href="#" onclick="showPage('home')" class="block hover:text-indigo-200">Home</a>
+            <a href="#" onclick="showPage('catalog')" class="block hover:text-indigo-200">Catalog</a>
+            <a href="#" onclick="showPage('login')" class="block hover:text-indigo-200">Login</a>
+            <a href="#" onclick="showPage('register')" class="block hover:text-indigo-200">Register</a>
+            <a href="#" onclick="showPage('cart')" class="block hover:text-indigo-200">Cart</a>
+        </div>
+    </header>
+
+    <!-- Home Page -->
+    <section id="home" class="page active">
+        <div class="relative bg-indigo-900 text-white py-24 px-4 text-center">
+            <div class="container mx-auto">
+                <h2 class="text-5xl font-extrabold mb-6">Your Academic Journey <br>Starts Here.</h2>
+                <p class="text-xl mb-8 text-indigo-100">Find all your textbooks, stationery, and college gear in one place.</p>
+                <button onclick="showPage('catalog')" class="bg-white text-indigo-700 px-8 py-3 rounded-full font-bold text-lg hover:bg-indigo-100 transition shadow-xl">
+                    Browse Catalog
+                </button>
+            </div>
+        </div>
+        <div class="container mx-auto px-4 py-16">
+            <h3 class="text-3xl font-bold text-center mb-12">Featured Categories</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-xl shadow-md text-center hover:shadow-lg transition border-b-4 border-indigo-500">
+                    <i class="fas fa-microscope text-4xl text-indigo-600 mb-4"></i>
+                    <h4 class="text-xl font-bold mb-2">Science & Tech</h4>
+                    <p class="text-gray-600">Latest journals and core textbooks for STEM.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md text-center hover:shadow-lg transition border-b-4 border-indigo-500">
+                    <i class="fas fa-balance-scale text-4xl text-indigo-600 mb-4"></i>
+                    <h4 class="text-xl font-bold mb-2">Arts & Law</h4>
+                    <p class="text-gray-600">Classic literature and legal frameworks.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md text-center hover:shadow-lg transition border-b-4 border-indigo-500">
+                    <i class="fas fa-calculator text-4xl text-indigo-600 mb-4"></i>
+                    <h4 class="text-xl font-bold mb-2">Mathematics</h4>
+                    <p class="text-gray-600">From Calculus to Advanced Statistics.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Catalog Page -->
+    <section id="catalog" class="page container mx-auto px-4 py-12">
+        <h2 class="text-3xl font-bold mb-8 text-center">Course Catalog</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="book-list">
+            <!-- Books will be injected here by JS -->
+        </div>
+    </section>
+
+    <!-- Login Page -->
+    <section id="login" class="page container mx-auto px-4 py-20">
+        <div class="max-w-md mx-auto bg-white p-8 rounded-2xl shadow-xl border border-gray-100">
+            <h2 class="text-2xl font-bold mb-6 text-center text-indigo-700">Welcome Back</h2>
+            <form class="space-y-4" onsubmit="event.preventDefault(); alert('Logged in successfully!')">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Email Address</label>
+                    <input type="email" required class="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Password</label>
+                    <input type="password" required class="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none">
+                </div>
+                <button class="w-full bg-indigo-700 text-white py-2 rounded-lg font-bold hover:bg-indigo-800 transition">Sign In</button>
+                <p class="text-center text-sm text-gray-600">Don't have an account? <a href="#" onclick="showPage('register')" class="text-indigo-600 font-medium">Register here</a></p>
+            </form>
+        </div>
+    </section>
+
+    <!-- Registration Page -->
+    <section id="register" class="page container mx-auto px-4 py-20">
+        <div class="max-w-md mx-auto bg-white p-8 rounded-2xl shadow-xl border border-gray-100">
+            <h2 class="text-2xl font-bold mb-6 text-center text-indigo-700">Create Account</h2>
+            <form class="space-y-4" onsubmit="event.preventDefault(); alert('Account created successfully!')">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">First Name</label>
+                        <input type="text" required class="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Last Name</label>
+                        <input type="text" required class="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">College ID</label>
+                    <input type="text" required class="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="e.g. 2024-CS-101">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Email</label>
+                    <input type="email" required class="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Password</label>
+                    <input type="password" required class="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none">
+                </div>
+                <button class="w-full bg-indigo-700 text-white py-2 rounded-lg font-bold hover:bg-indigo-800 transition">Register Now</button>
+                <p class="text-center text-sm text-gray-600">Already have an account? <a href="#" onclick="showPage('login')" class="text-indigo-600 font-medium">Login here</a></p>
+            </form>
+        </div>
+    </section>
+
+    <!-- Cart Page -->
+    <section id="cart" class="page container mx-auto px-4 py-12">
+        <h2 class="text-3xl font-bold mb-8 text-center">Your Shopping Cart</h2>
+        <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-md overflow-hidden">
+            <table class="w-full text-left border-collapse">
+                <thead class="bg-gray-100">
+                    <tr>
+                        <th class="px-6 py-4 font-bold text-gray-700">Book</th>
+                        <th class="px-6 py-4 font-bold text-gray-700">Price</th>
+                        <th class="px-6 py-4 font-bold text-gray-700 text-center">Qty</th>
+                        <th class="px-6 py-4 font-bold text-gray-700 text-right">Total</th>
+                        <th class="px-6 py-4"></th>
+                    </tr>
+                </thead>
+                <tbody id="cart-items">
+                    <!-- Cart items injected here -->
+                </tbody>
+            </table>
+            <div class="p-6 bg-gray-50 text-right">
+                <p class="text-xl font-bold mb-4">Grand Total: <span id="grand-total" class="text-indigo-700">$0.00</span></p>
+                <button onclick="alert('Proceeding to secure payment gateway...')" class="bg-indigo-700 text-white px-10 py-3 rounded-lg font-bold hover:bg-indigo-800 transition">Checkout</button>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-800 text-gray-400 py-8 text-center mt-20">
+        <p>&copy; 2026 City State College Bookstore. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Sample Book Data
+        const books = [
+            { id: 1, title: "Intro to Quantum Physics", price: 89.99, category: "Science", img: "https://via.placeholder.com/150?text=Quantum+Physics" },
+            { id: 2, title: "Modern Macroeconomics", price: 65.50, category: "Business", img: "https://via.placeholder.com/150?text=Economics" },
+            { id: 3, title: "Digital Logic Design", price: 72.00, category: "Engineering", img: "https://via.placeholder.com/150?text=Logic+Design" },
+            { id: 4, title: "History of Modern Art", price: 45.00, category: "Arts", img: "https://via.placeholder.com/150?text=Modern+Art" },
+            { id: 5, title: "Advanced Calculus", price: 95.00, category: "Math", img: "https://via.placeholder.com/150?text=Calculus" },
+            { id: 6, title: "Organic Chemistry Vol 1", price: 110.00, category: "Science", img: "https://via.placeholder.com/150?text=Chemistry" },
+            { id: 7, title: "Constitutional Law", price: 120.00, category: "Law", img: "https://via.placeholder.com/150?text=Law" },
+            { id: 8, title: "Psychology 101", price: 55.00, category: "Social Science", img: "https://via.placeholder.com/150?text=Psychology" },
+        ];
+
+        let cart = [];
+
+        // Router Logic: Handles switching between "pages"
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            window.scrollTo(0,0);
+            if(window.innerWidth < 768) toggleMobileMenu();
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Catalog Logic: Renders books to the catalog page
+        function renderCatalog() {
+            const list = document.getElementById('book-list');
+            list.innerHTML = books.map(book => `
+                <div class="bg-white rounded-xl shadow-sm p-4 border hover:shadow-md transition group">
+                    <img src="${book.img}" class="w-full h-48 object-cover rounded-lg mb-4 group-hover:scale-105 transition duration-300">
+                    <span class="text-xs font-bold text-indigo-600 uppercase">${book.category}</span>
+                    <h4 class="text-lg font-bold mb-2 truncate">${book.title}</h4>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xl font-extrabold text-gray-800">$${book.price}</span>
+                        <button onclick="addToCart(${book.id})" class="bg-indigo-100 text-indigo-700 p-2 rounded-full hover:bg-indigo-700 hover:text-white transition">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Cart Logic: Manages adding/removing items and updating total
+        function addToCart(id) {
+            const book = books.find(b => b.id === id);
+            const existing = cart.find(item => item.id === id);
+            if(existing) {
+                existing.qty++;
+            } else {
+                cart.push({...book, qty: 1});
+            }
+            updateCartUI();
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            document.getElementById('cart-count').innerText = cart.reduce((sum, item) => sum + item.qty, 0);
+            
+            const cartList = document.getElementById('cart-items');
+            if(cart.length === 0) {
+                cartList.innerHTML = '<tr><td colspan="5" class="px-6 py-10 text-center text-gray-500 italic">Your cart is empty. Start adding some books!</td></tr>';
+            } else {
+                cartList.innerHTML = cart.map(item => `
+                    <tr class="border-b hover:bg-gray-50">
+                        <td class="px-6 py-4 font-medium">${item.title}</td>
+                        <td class="px-6 py-4">$${item.price}</td>
+                        <td class="px-6 py-4 text-center">${item.qty}</td>
+                        <td class="px-6 py-4 text-right font-bold">$${(item.price * item.qty).toFixed(2)}</td>
+                        <td class="px-6 py-4 text-right">
+                            <button onclick="removeFromCart(${item.id})" class="text-red-500 hover:text-red-700"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+
+            const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            document.getElementById('grand-total').innerText = `$${total.toFixed(2)}`;
+        }
+
+        // Initialize the site
+        window.onload = () => {
+            renderCatalog();
+            updateCartUI();
+        };
+    </script>
+</body>
+</html>
